@@ -6,10 +6,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
+public class Shell {
 
-public class Main {
 
-
+    /**
+     * The main method implements a simple shell that allows you to execute commands.
+     * It also allows you to redirect the output of a command to a file.
+     * The shell keeps track of the last command executed.
+     * It also allows you to retrieve information about the last command executed.
+     * The shell is implemented as a loop that reads commands from the standard input.
+     * The loop exits when the user enters the command "exit".
+     * The shell us implemented using the Command class.
+     *
+     * @param args The command line arguments.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Command lastCommand = null;
