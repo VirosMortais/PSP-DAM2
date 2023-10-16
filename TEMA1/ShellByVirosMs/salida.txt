@@ -1,0 +1,14 @@
+total 12
+drwxrwxrwx 1 charles charles 4096 Oct 15 16:32 .
+drwxrwxrwx 1 charles charles 4096 Oct 15 15:54 ..
+drwxrwxrwx 1 charles charles 4096 Oct 15 16:32 build
+-rwxrwxrwx 1 charles charles  306 Oct 15 15:54 build.gradle.kts
+-rwxrwxrwx 1 charles charles  539 Oct 15 15:54 .gitignore
+drwxrwxrwx 1 charles charles 4096 Oct 15 16:32 .gradle
+drwxrwxrwx 1 charles charles 4096 Oct 15 15:54 gradle
+-rwxrwxrwx 1 charles charles 8070 Oct 15 15:54 gradlew
+-rwxrwxrwx 1 charles charles 2763 Oct 15 15:54 gradlew.bat
+drwxrwxrwx 1 charles charles 4096 Oct 15 17:57 .idea
+-rwxrwxrwx 1 charles charles    0 Oct 15 17:57 salida.txt
+-rwxrwxrwx 1 charles charles   39 Oct 15 15:54 settings.gradle.kts
+drwxrwxrwx 1 charles charles 4096 Oct 15 15:54 src
