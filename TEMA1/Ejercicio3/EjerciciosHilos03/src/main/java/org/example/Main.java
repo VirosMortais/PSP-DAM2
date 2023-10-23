@@ -5,27 +5,19 @@ public class Main {
         Contador contador = new Contador();
 
         Thread thread1 = new Thread(() -> {
-            for (int i = 0; i < 500; i++) {
-                contador.incrementar();
-            }
+            bucleRange500(contador);
         });
 
         Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < 500; i++) {
-                contador.incrementar();
-            }
+            bucleRange500(contador);
         });
 
         Thread thread3 = new Thread(() -> {
-            for (int i = 0; i < 500; i++) {
-                contador.incrementar();
-            }
+            bucleRange500(contador);
         });
 
         Thread thread4 = new Thread(() -> {
-            for (int i = 0; i < 500; i++) {
-                contador.incrementar();
-            }
+            bucleRange500(contador);
         });
 
         thread1.start();
@@ -44,5 +36,11 @@ public class Main {
 
         System.out.println(contador.getValor());
 
+    }
+
+    private static void bucleRange500(Contador contador) {
+        for (int i = 0; i < 500; i++) {
+            contador.incremental();
+        }
     }
 }
