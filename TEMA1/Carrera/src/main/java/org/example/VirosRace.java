@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * @author Charles Arruda Santos
  * @version 1.0.0
- * @since 2021-10-01
+ * @since 2023-10-28
  * @see org.example.runners.Runner
  * @see org.example.race.Race
  *
