@@ -47,7 +47,7 @@ public class VirosRace {
         //Scanner to scan the number of runners and their attributes
         Scanner sc = new Scanner(System.in);
         //Number of runners
-        System.out.println("Number of runners: ");
+        System.out.print("Number of runners: ");
         int runnerNumber = sc.nextInt();
         //Clear the scanner
         sc.nextLine();
@@ -77,7 +77,7 @@ public class VirosRace {
 
             try {
                 //Add the runner to the list
-                runnerList.add(new Runner(runnerSymbol, runnerSpeed, runnerTurbo, runnerFall));
+                runnerList.add(new Runner(runnerSymbol, runnerTurbo, runnerSpeed, runnerFall));
                 System.out.printf("Runner %d created\r\n", runnerList.size());
             } catch (Exception e) {
                 System.out.printf("Runner not created. Currently %d runners.\r\n", runnerList.size());

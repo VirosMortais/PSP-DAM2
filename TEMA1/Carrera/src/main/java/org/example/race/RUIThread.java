@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.example.runners.TList;
 
+/**
+ * This class we use to
+ */
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)

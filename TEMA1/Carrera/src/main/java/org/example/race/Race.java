@@ -8,6 +8,7 @@ import org.example.runners.TList;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Data
 public class Race {
     private List<Runner> runnersList;
@@ -17,7 +18,7 @@ public class Race {
     private TList raceResults;
 
     private RUIThread raceUI;
-    private static final int raceEnd = 50;
+    private static final int RACE_END = 100;
 
     public Race (List<Runner> runnersList){
         this.runnersList = runnersList;
@@ -26,8 +27,8 @@ public class Race {
         this.raceResults = new TList();
 
         for (Runner runner : runnersList){
-            this.runnerThreadList.add(new RunnerThread(runner, Race.raceEnd ,raceResults));
-            this.fallThreadList.add(new RunnerFallThread(runner, Race.raceEnd));
+            this.runnerThreadList.add(new RunnerThread(runner, Race.RACE_END, raceResults));
+            this.fallThreadList.add(new RunnerFallThread(runner, Race.RACE_END));
         }
 
         this.raceUI = new RUIThread(this, raceResults, runnersList.size());
@@ -63,12 +64,12 @@ public class Race {
 
     @Override
     public String toString(){
-        StringBuilder ui = new StringBuilder("\r\n".repeat(10) + "*".repeat(52) + "\r\n");
+        StringBuilder ui = new StringBuilder("\r\n".repeat(10) + "*".repeat(102) + "\r\n");
         for (Runner runner: runnersList) {
             ui.append("*").append(" ".repeat(runner.getPosition())).append(runner.getSymbol()).append(" "
-                    .repeat(Math.max(raceEnd - runner.getPosition() - 1, 0))).append("*\r\n");
+                    .repeat(Math.max(RACE_END - runner.getPosition() - 1, 0))).append("*\r\n");
         }
-        ui.append("*".repeat(52)).append("\r\n");
+        ui.append("*".repeat(102)).append("\r\n");
         return ui.toString();
     }
 }

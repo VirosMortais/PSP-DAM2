@@ -18,8 +18,8 @@ import lombok.Data;
 public class Runner {
 
     private String symbol;
-    private int turbo;
     private int baseSpeed;
+    private int turbo;
     private int fallChance;
     private int position;
 
