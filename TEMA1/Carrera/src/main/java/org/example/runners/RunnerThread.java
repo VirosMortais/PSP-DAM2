@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class RunnerThread extends Thread{
     private Runner runner;
     private int raceLength;
-    private TList raceResult;
+    private TList result;
 
 
     /**
@@ -41,7 +41,7 @@ public class RunnerThread extends Thread{
                 throw new RuntimeException(e.getMessage());
             }
         }
-        raceResult.add(runner.getSymbol());
+        result.add(runner.getSymbol());
     }
 
 }

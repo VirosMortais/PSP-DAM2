@@ -18,7 +18,7 @@ import lombok.Data;
 public class Runner {
 
     private String symbol;
-    private int baseSpeed;
+    private int speed;
     private int turbo;
     private int fallChance;
     private int position;
@@ -31,20 +31,20 @@ public class Runner {
      *
      * @param symbol is the symbol of the runner
      * @param turbo is the turbo of the runner
-     * @param baseSpeed is the base speed of the runner
+     * @param speed is the base speed of the runner
      * @param fallChance is the fall chance of the runner
      */
-    public Runner(String symbol, int turbo, int baseSpeed, int fallChance) {
+    public Runner(String symbol, int turbo, int speed, int fallChance) {
         this.symbol = symbol;
         this.position = 0;
 
         //Validate the attributes of the runner
-        if (!validateAttributes(baseSpeed, turbo, fallChance)) {
+        if (!validateFields(speed, turbo, fallChance)) {
             throw new IllegalArgumentException("Attributes must be less than or equal to 5 and greater than 0");
         }
 
         this.turbo = turbo;
-        this.baseSpeed = baseSpeed;
+        this.speed = speed;
         this.fallChance = fallChance;
 
     }
@@ -57,7 +57,7 @@ public class Runner {
      * @param fallChance is the fall chance of the runner
      * @return true if the attributes are valid, false if not
      */
-    private boolean validateAttributes(int baseSpeed, int turbo, int fallChance) {
+    private boolean validateFields(int baseSpeed, int turbo, int fallChance) {
         //The sum of the attributes must be less than or equal to 10
         int sum = baseSpeed + turbo + fallChance;
         //Return true if the attributes are valid, false if not
@@ -85,10 +85,10 @@ public class Runner {
             //we check if the runner can go all the way with the turbo probability
             if(Math.random() < turbo / 10.){
                 //if the runner can go all the way with the turbo probability, we add the turbo to the base speed
-                this.position += baseSpeed;
+                this.position += speed;
             }
             //if the runner can't go all the way with the turbo probability, we add the base speed
-            this.position += baseSpeed;
+            this.position += speed;
         }
         //return true if the runner can go all the way, false if not
         return this.position < raceEnd;
@@ -109,7 +109,7 @@ public class Runner {
             //we check if the runner can fall all the way with the fall chance
             if (Math.random() < fallChance / 10.){
                 //if the runner can fall all the way with the fall chance, we subtract the base speed
-                position -= baseSpeed;
+                position -= speed;
             }
         }
         //return true if the runner can fall all the way, false if not

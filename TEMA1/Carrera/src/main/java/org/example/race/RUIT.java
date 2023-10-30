@@ -11,7 +11,7 @@ import org.example.runners.TList;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RUIThread extends Thread{
+public class RUIT extends Thread{
     private Race race;
     private TList raceResults;
     private int runners;
