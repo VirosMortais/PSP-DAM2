@@ -17,7 +17,7 @@ public class Race {
 
     private TList raceResults;
 
-    private RUIThread raceUI;
+    private RUIT raceUI;
     private static final int RACE_END = 100;
 
     public Race (List<Runner> runnersList){
@@ -31,7 +31,7 @@ public class Race {
             this.fallThreadList.add(new RunnerFallThread(runner, Race.RACE_END));
         }
 
-        this.raceUI = new RUIThread(this, raceResults, runnersList.size());
+        this.raceUI = new RUIT(this, raceResults, runnersList.size());
     }
 
 
@@ -54,6 +54,10 @@ public class Race {
         }
         raceUI.join();
 
+        printClassication();
+    }
+
+    private void printClassication() {
         System.out.print("Classification:\r\n");
         for (int i = 0; i < raceResults.size(); i++) {
             System.out.printf("%d - %s\r\n", i+1, raceResults.get(i));
@@ -61,15 +65,14 @@ public class Race {
     }
 
 
-
     @Override
     public String toString(){
-        StringBuilder ui = new StringBuilder("\r\n".repeat(10) + "*".repeat(102) + "\r\n");
+        StringBuilder ui = new StringBuilder("\r\n".repeat(10) + "=".repeat(102) + "\r\n");
         for (Runner runner: runnersList) {
-            ui.append("*").append(" ".repeat(runner.getPosition())).append(runner.getSymbol()).append(" "
-                    .repeat(Math.max(RACE_END - runner.getPosition() - 1, 0))).append("*\r\n");
+            ui.append("¡").append(" ".repeat(runner.getPosition())).append(runner.getSymbol()).append(" "
+                    .repeat(Math.max(RACE_END - runner.getPosition() - 1, 0))).append("!\r\n");
         }
-        ui.append("*".repeat(102)).append("\r\n");
+        ui.append("=".repeat(102)).append("\r\n");
         return ui.toString();
     }
 }
