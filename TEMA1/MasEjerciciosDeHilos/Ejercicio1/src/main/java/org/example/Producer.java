@@ -14,14 +14,14 @@ public class Producer extends Thread{
      * The producer puts a container every second
      */
     public void run() {
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 30; i++) {
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e.getMessage());
             }
             // The producer puts a container
-            containers.put((int) (Math.random() * 100));
+            containers.put(i+1);
         }
         // The producer is finished
         containers.setTerminado(true);

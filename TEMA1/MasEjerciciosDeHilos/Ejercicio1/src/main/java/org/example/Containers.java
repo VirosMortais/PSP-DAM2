@@ -55,6 +55,7 @@ public class Containers {
         while (isFull()) {
             try {
                 // The producer waits if the list is full
+                System.out.println("Producer waiting");
                 wait();
             } catch (InterruptedException e) {
                 System.out.println("Producer interrupted");
@@ -62,7 +63,6 @@ public class Containers {
         }
         // The producer puts a container
         list.add(i);
-        System.out.println("Producer put " + i);
         // The producer notifies the customer
         notifyAll();
     }
@@ -79,6 +79,7 @@ public class Containers {
         while (isEmpty()) {
             try {
                 // The customer waits if the list is empty
+                System.out.println("Customer waiting");
                 wait();
             } catch (InterruptedException e) {
                 System.out.println("Customer interrupted");
