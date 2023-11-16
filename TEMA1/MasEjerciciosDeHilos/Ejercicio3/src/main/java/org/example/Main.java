@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        final int MAX_CLIENTS = 100;
+        final int MAX_CLIENTS = 200;
         final int MAX_CAPACITY = 20;
 
         LinkedList<Client> clients = new LinkedList<>();
