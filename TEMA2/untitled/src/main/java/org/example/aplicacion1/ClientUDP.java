@@ -1,8 +1,10 @@
 package org.example.aplicacion1;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 
 import static org.example.aplicacion1.Constastes.PORT;
 
@@ -28,9 +30,9 @@ public class ClientUDP {
             System.out.println(received);
 
 
-        } catch (java.net.SocketException e) {
+        } catch (SocketException e) {
             System.out.println("Socket: " + e.getMessage());
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             System.out.println("IO: " + e.getMessage());
         }
     }
