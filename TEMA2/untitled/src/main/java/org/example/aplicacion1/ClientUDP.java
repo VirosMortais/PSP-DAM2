@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
+import static org.example.aplicacion1.Constastes.HOST;
 import static org.example.aplicacion1.Constastes.PORT;
 
 
@@ -15,7 +16,7 @@ public class ClientUDP {
         try(DatagramSocket socketUDP = new DatagramSocket()){
 
             byte[] message = "time".getBytes();
-            InetAddress serverHost = InetAddress.getByName("localhost");
+            InetAddress serverHost = InetAddress.getByName(HOST);
 
             DatagramPacket sendDatagram = new DatagramPacket(message, message.length, serverHost, PORT);
 

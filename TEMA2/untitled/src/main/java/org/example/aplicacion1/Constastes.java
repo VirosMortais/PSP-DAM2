@@ -7,4 +7,5 @@ import lombok.Data;
 public class Constastes {
 
     public static final int PORT = 6789;
+    public static final String HOST = "localhost";
 }
