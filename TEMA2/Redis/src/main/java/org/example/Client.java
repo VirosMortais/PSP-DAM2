@@ -1,81 +1,70 @@
 package org.example;
 
-
 import redis.clients.jedis.Jedis;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import static org.example.Constantes.*;
+
 public class Client {
-    public static void main(String[] args) throws IOException {
+    private static final String URL_TO_SHORTEN_KEY = "CHARLES:URLS_TO_SHORTEN";
+    private static final String SHORTENED_URL_KEY = "CHARLES:SHORTENED_URLS";
+    private static final String HELP_MESSAGE = """
+                                Commands:
+                                shorten <URL> - Shorten the given URL
+                                url <shortened URL> - Return the original URL
+                                help - Shows this message
+                                exit - Exit the program""";
 
-        String urlToShortenKey = "CHARLES:URL_TO_SHORTEN";
-        String shortenedUrlKey = "CHARLES:SHORTENED_URL";
-
+    public static void main(String[] args) {
         Thread thread = new Thread(new Service());
 
+        try (Jedis jedis = new Jedis(HOST, PORT);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
 
-        try (Jedis jedis = new Jedis("34.228.162.124", 6379)) {
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Por favor, ingresa el comando que deseas ejecutar:\n" +
-                    "- shorten URL : Donde URL es la dirección web que deseas acortar\n" +
-                    "- url SHORTEDURL : Donde SHORTEDURL es la dirección web acortada que deseas expandir\n" +
-                    "- exit : Para salir del programa");
-            System.out.print("Por favor, ingresa tu comando:");
-
-            String command = reader.readLine();
-
+            System.out.println(HELP_MESSAGE);
             thread.start();
 
-            jedis.del(urlToShortenKey);
-            while (!command.equals("exit")) {
-                String[] commandSplitted = command.split(" ");
+            String command;
+            do {
+                System.out.print("#: ");
+                command = reader.readLine();
+                String[] commandSplitted = command.split(" ", 2);
 
                 switch (commandSplitted[0]) {
-
                     case "shorten":
-
-                        String url = commandSplitted[1];
-
-                        jedis.lpush(urlToShortenKey, url);
-
-                        try {
-                            System.out.println("La url se esta acortando, por favor espera un momento");
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            System.out.println("Error: " + e.getMessage());
+                        if (commandSplitted.length >= 2) {
+                            String url = commandSplitted[1];
+                            jedis.lpush(URL_TO_SHORTEN_KEY, url);
+                        } else {
+                            System.err.println("Invalid command: Missing URL");
                         }
                         break;
-
                     case "url":
-                        String shortedUrl = commandSplitted[1];
-                        String urlLarge = jedis.hget(shortenedUrlKey, shortedUrl);
-
-                        if (urlLarge == null)
-                            System.out.println("La url no existe");
-                        else
-                            System.out.println("La url es : " + urlLarge);
-
+                        if (commandSplitted.length >= 2) {
+                            String shortedUrl = commandSplitted[1];
+                            System.out.println(jedis.hget(SHORTENED_URL_KEY, shortedUrl));
+                        } else {
+                            System.err.println("Invalid command: Missing shortened URL");
+                        }
+                        break;
+                    case "help":
+                        System.out.println("\n" + HELP_MESSAGE);
+                        break;
+                    case "exit":
                         break;
                     default:
-                        System.out.println("Comando no reconocido");
+                        System.err.println("Invalid command: Command not found");
                         break;
                 }
+            } while (!command.equals("exit"));
 
-                System.out.print("Escribe el comando que quieras :");
-                command = reader.readLine();
-            }
-
-        }catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
-        }finally {
+        } catch (IOException e) {
+            System.out.println("Error reading input");
+        } finally {
             thread.interrupt();
         }
     }
-
-
 }
