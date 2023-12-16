@@ -101,7 +101,6 @@ mvn exec:java -Dexec.mainClass="org.example.Client"
 ```bash
 mvn exec:java -Dexec.mainClass="org.example.Service"
 ```
-[!IMPORTANT]
-Por favor, asegúrate de reemplazar `yourusername` y `your-repo-name` con tu nombre de usuario de GitHub y el nombre de tu repositorio, respectivamente.
-
-Además, recuerda que necesitarás tener acceso a una base de datos Redis y deberás configurar la dirección del host y el puerto en el archivo `Constantes.java`.
+>[!IMPORTANT]
+>Por favor, asegúrate de reemplazar `yourusername` y `your-repo-name` con tu nombre de usuario de GitHub y el nombre de tu repositorio, respectivamente.
+>Además, recuerda que necesitarás tener acceso a una base de datos Redis y deberás configurar la dirección del host y el puerto en el archivo `Constantes.java`.
