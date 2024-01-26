@@ -1,6 +1,7 @@
 # PersecucionVirosms
 
-![Logo](https://github.com/VirosMortais/PersecucionVirosMs/assets/94723454/707f496c-3b03-4f56-9a3c-db9dbdf6a4cd)
+![Logo](https://github.com/VirosMs/PSP-DAM2/assets/94723454/2a91d2f8-bc3b-47f3-99ca-c0c93a6b6495)
+
 
 ## Descripción del Proyecto
 
