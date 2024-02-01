@@ -1,9 +1,16 @@
 package org.virosms.trabajandoconfuturos;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.zip.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class Ejercicio02 {
 
@@ -13,16 +20,42 @@ public class Ejercicio02 {
         String sourcePath = getPath("Enter the source path: ");
         String destinationPath = getPath("Enter the destination path: ");
 
-        try {
-            if(Files.isDirectory(Paths.get(sourcePath)))
-                zipDirectory(sourcePath);
-            else
-                zipFile(new File(sourcePath), sourcePath, new ZipOutputStream(new FileOutputStream("temp.zip")));
 
-            moveFile(destinationPath);
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+        CompletableFuture<Void> future;
+
+        if (Files.isDirectory(Paths.get(sourcePath))) {
+            future = CompletableFuture.runAsync(() -> {
+                try {
+                    zipDirectory(sourcePath);
+                } catch (IOException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }).thenRunAsync(() -> {
+                try {
+                    moveFile(destinationPath);
+                } catch (IOException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            });
+        } else {
+            future = CompletableFuture.runAsync(() -> {
+                try {
+                    zipFile(new File(sourcePath), sourcePath, new ZipOutputStream(new FileOutputStream("temp.zip")));
+                } catch (IOException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }).thenRunAsync(() -> {
+                try {
+                    moveFile(destinationPath);
+                } catch (IOException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            });
         }
+
+        future.join();
+        // moveFile(destinationPath);
+
     }
 
     private static void zipDirectory(String sourceDirectory) throws IOException {
@@ -67,14 +100,14 @@ public class Ejercicio02 {
     private static void moveFile(String destinationPath) throws IOException {
         Path temp = Files.move(Paths.get("temp.zip"), Paths.get(destinationPath, "compressed.zip"));
 
-        if(Files.exists(temp)) {
+        if (Files.exists(temp)) {
             System.out.println("File moved successfully");
         } else {
             System.out.println("Failed to move the file");
         }
     }
 
-    private static String getPath(String prompt){
+    private static String getPath(String prompt) {
         Scanner in = new Scanner(System.in);
         System.out.print(prompt);
         return in.nextLine();
