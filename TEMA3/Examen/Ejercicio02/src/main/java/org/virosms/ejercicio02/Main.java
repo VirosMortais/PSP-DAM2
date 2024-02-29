@@ -1,4 +1,4 @@
-package org.virosms.ejercicio01;
+package org.virosms.ejercicio02;
 
 /**
  * The Main class is the entry point of the application.

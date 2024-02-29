@@ -1,4 +1,4 @@
-package org.virosms.ejercicio01;
+package org.virosms.ejercicio02;
 
 /**
  * The UrlEntry record represents a URL entry in the list.

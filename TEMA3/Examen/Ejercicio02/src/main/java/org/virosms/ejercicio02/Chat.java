@@ -1,10 +1,12 @@
-package org.virosms.ejercicio01;
+package org.virosms.ejercicio02;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.virosms.ejercicio01.utils.Utils;
+import org.virosms.ejercicio02.utils.Utils;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * The Chat class is responsible for interacting with the user and managing the list of URLs.
@@ -23,7 +25,7 @@ public class Chat {
     /**
      * The showChat method displays instructions to the user.
      */
-    public void showChat(){
+    public void showChat() {
         System.out.println("Precione Enter si quieres para de introducir urls");
         System.out.println("Si quieres introducir un url para download insira directamente el url");
         System.out.print("Respuesta: ");
@@ -34,7 +36,7 @@ public class Chat {
      * It also generates a random string for each URL and creates a UrlEntry object.
      * The method continues to read URLs until the user enters an empty string.
      */
-    public void askForUrl(){
+    public void askForUrl() {
         // Add the DownloaderAndZipper object as a listener to the urls list
         urls.addListener(daz);
 
@@ -45,11 +47,23 @@ public class Chat {
             String url = sc.nextLine();
 
             // Add a new UrlEntry object to the urls list
-            urls.add(new UrlEntry(url, Utils.genereteRandomString()));
-            // Break the loop if the user entered an empty string
-            if(url.isEmpty()){
-                break;
+            if(!url.isEmpty()) {
+                urls.add(new UrlEntry(url, Utils.genereteRandomString()));
             }
-        }while (true);
+            // Break the loop if the user entered an empty string
+            if (url.isEmpty()) {
+
+                List<CompletableFuture<Void>> futures = urls.stream()
+                        .map(DownloaderAndZipper::downloadFile)
+                        .toList();
+
+                CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                        .thenCompose(v -> DownloaderAndZipper.zipFiles(urls.stream().toList()))
+                        .join();
+                System.out.println("Se va a proceder a descargar y comprimir los ficheros");
+                break;
+
+            }
+        } while (true);
     }
 }

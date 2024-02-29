@@ -50,7 +50,7 @@ Para instalar este proyecto, necesitarás tener IntelliJ IDEA y el JDK de Java i
 
 ```bash
 git clone https://github.com/VirosMs/PSP-DAM2.git
-cd /TEMA3/Examen/Ejercicio01
+cd /TEMA3/Examen/Ejercicio02
 ```
 
 2. Abre el proyecto en IntelliJ IDEA.

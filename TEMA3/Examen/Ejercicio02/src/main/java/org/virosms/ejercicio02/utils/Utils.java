@@ -1,4 +1,4 @@
-package org.virosms.ejercicio01.utils;
+package org.virosms.ejercicio02.utils;
 
 import java.util.UUID;
 
